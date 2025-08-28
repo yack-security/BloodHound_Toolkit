@@ -1,0 +1,8 @@
+.DS_Store
+data/neo4j-data
+data/postgres-data
+data/temp
+data/queries
+.env
+test.py
+__pycache__
