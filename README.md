@@ -6,6 +6,15 @@ Toolkit for interacting with BloodHound API.
 
 This is early stage, use it at your own risk.
 
+## Requirements
+
+You only need the requirements below ( you don't need to have BloodHound running). All the necessary steps are automated.
+
+- git
+- Python 3.10+
+- Docker
+- Docker Compose
+
 ## Setup
 
 ```bash
@@ -18,6 +27,8 @@ pip3 install -r requirements.txt
 # modify if you need to
 cp env.example .env
 cp bloodhound.config.json.example bloodhound.config.json
+
+# you can also edit docker-compose.yml if you need to
 
 # starting for the first time
 python3 bhtk.py -start
@@ -33,9 +44,8 @@ python3 bhtk.py -h
 ```
 
 ```txt
-usage: bhtk.py [-h] [--start-containers] [--stop-containers] [--restart-containers] [--docker-logs] [--initial-config] [--change-password] [--list-databases] [--current-db] [--set-database SET_DATABASE]
-               [--clear-database] [--import-specterops-queries] [--import-custom-queries IMPORT_CUSTOM_QUERIES] [--delete-all-queries] [--retrieve-initial-password] [--create-api-key] [--update-api-key]
-               [--verify-access] [--upload-collection UPLOAD_COLLECTION] [--run-analysis]
+usage: bhtk.py [-h] [--start-containers] [--stop-containers] [--restart-containers] [--docker-logs] [--initial-config] [--change-password] [--list-databases] [--current-db] [--set-database SET_DATABASE] [--clear-database] [--import-specterops-queries]
+               [--import-custom-queries IMPORT_CUSTOM_QUERIES] [--delete-all-queries] [--retrieve-initial-password] [--create-api-key] [--update-api-key] [--verify-access] [--upload-collection UPLOAD_COLLECTION] [--run-analysis] [--no-banner]
 
 Bloodhound Toolkit CLI
 
@@ -75,6 +85,7 @@ options:
   --upload-collection UPLOAD_COLLECTION, -uc UPLOAD_COLLECTION
                         Specify a folder containing json data or a zip file
   --run-analysis, -ra   Run analysis on data
+  --no-banner, -nb      Don't show banner
 ```
 
 #### Examples

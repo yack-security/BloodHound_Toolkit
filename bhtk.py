@@ -9,8 +9,6 @@ import os
 import auth_flow
 import time
 
-banner.generate_banner()
-
 # bloodhound toolkit cli
 docker_compose_dir = config.load_env_variables()["docker_compose_dir"]
 neo4j_data_dir = f"{docker_compose_dir}/data/neo4j-data"
@@ -50,12 +48,19 @@ parser.add_argument(
 parser.add_argument("--verify-access", "-va", action="store_true", help="Verify access to BloodHound")
 parser.add_argument("--upload-collection", "-uc", help="Specify a folder containing json data or a zip file")
 parser.add_argument("--run-analysis", "-ra", action="store_true", help="Run analysis on data")
+parser.add_argument("--no-banner", "-nb", action="store_true", help="Don't show banner")
 args = parser.parse_args()
 
 # if no arguments, print help
 if len(sys.argv) == 1:
     parser.print_help()
     sys.exit(1)
+
+# if no banner, don't show banner
+if args.no_banner:
+    banner.generate_banner = lambda: None
+else:
+    banner.generate_banner()
 
 # start the containers
 if args.start_containers:
