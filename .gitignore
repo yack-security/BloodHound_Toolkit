@@ -6,3 +6,5 @@ data/queries
 .env
 test.py
 __pycache__
+data/queries/sample.json
+bloodhound.config.json
