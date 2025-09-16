@@ -45,3 +45,32 @@ def delete_all_saved_queries():
 
 def get_saved_queries():
     return bh_utils.pass_request("GET", "/api/v2/saved-queries").json()["data"]
+
+
+def convert_legacy_queries(queries):
+    converted_queries = []
+
+    for query in queries:
+        # Skip queries with separator lines in name
+        if "--------------" in query.get("name", ""):
+            continue
+
+        # Extract query from queryList if it exists (Azure format)
+        if "queryList" in query and query["queryList"]:
+            query_text = query["queryList"][0].get("query", "")
+        else:
+            query_text = query.get("query", "")
+
+        # Skip if no query text
+        if not query_text:
+            continue
+
+        # Create the converted query in BloodHound format
+        converted_query = {
+            "name": f"{query.get('category', 'Unknown')} - {query.get('name', 'Unnamed Query')}",
+            "query": query_text,
+        }
+
+        converted_queries.append(converted_query)
+
+    return converted_queries

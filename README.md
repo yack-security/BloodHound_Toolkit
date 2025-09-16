@@ -44,8 +44,9 @@ python3 bhtk.py -h
 ```
 
 ```txt
-usage: bhtk.py [-h] [--start-containers] [--stop-containers] [--restart-containers] [--docker-logs] [--initial-config] [--change-password] [--list-databases] [--current-db] [--set-database SET_DATABASE] [--clear-database] [--import-specterops-queries]
-               [--import-custom-queries IMPORT_CUSTOM_QUERIES] [--delete-all-queries] [--retrieve-initial-password] [--create-api-key] [--update-api-key] [--verify-access] [--upload-collection UPLOAD_COLLECTION] [--run-analysis] [--no-banner]
+usage: bhtk.py [-h] [--start-containers] [--stop-containers] [--restart-containers] [--docker-logs] [--initial-config] [--change-password] [--list-databases] [--current-db] [--set-database SET_DATABASE]
+               [--clear-database] [--import-specterops-queries] [--import-custom-queries IMPORT_CUSTOM_QUERIES] [--old] [--delete-all-queries] [--retrieve-initial-password] [--create-api-key] [--update-api-key]
+               [--verify-access] [--upload-collection UPLOAD_COLLECTION] [--run-analysis] [--no-banner]
 
 Bloodhound Toolkit CLI
 
@@ -73,6 +74,7 @@ options:
                         Import SpecterOps queries from github
   --import-custom-queries IMPORT_CUSTOM_QUERIES, -icq IMPORT_CUSTOM_QUERIES
                         Import custom queries from file or url
+  --old                 Convert legacy query format before importing (use with -icq)
   --delete-all-queries, -dq
                         Delete all custom queries
   --retrieve-initial-password, -rip
@@ -111,6 +113,8 @@ python3 bhtk.py -isq
 # Import custom queries from file or url
 python3 bhtk.py -icq data/queries/custom.json
 python3 bhtk.py -icq https://raw.githubusercontent.com/yack-security/BloodHound_Toolkit/main/data/queries/custom.json
+
+# try --old flag if you are importing legacy queries
 
 # Delete all custom queries
 python3 bhtk.py -dq

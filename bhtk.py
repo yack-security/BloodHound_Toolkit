@@ -39,6 +39,7 @@ parser.add_argument(
     "--import-specterops-queries", "-isq", action="store_true", help="Import SpecterOps queries from github"
 )
 parser.add_argument("--import-custom-queries", "-icq", help="Import custom queries from file or url")
+parser.add_argument("--old", action="store_true", help="Convert legacy query format before importing (use with -icq)")
 parser.add_argument("--delete-all-queries", "-dq", action="store_true", help="Delete all custom queries")
 parser.add_argument("--retrieve-initial-password", "-rip", action="store_true", help="Retrieve initial password")
 parser.add_argument("--create-api-key", "-cak", action="store_true", help="Create API key")
@@ -171,6 +172,18 @@ if args.import_specterops_queries:
 # import custom queries
 if args.import_custom_queries:
     custom_queries = queries.load_custom_queries(args.import_custom_queries)
+
+    # Convert legacy format if --old flag is present
+    if args.old:
+        # Handle Azure queries structure (object with 'queries' key)
+        if isinstance(custom_queries, dict) and "queries" in custom_queries:
+            queries_list = custom_queries["queries"]
+        else:
+            queries_list = custom_queries
+
+        custom_queries = queries.convert_legacy_queries(queries_list)
+        print("Legacy queries converted")
+
     queries.import_queries(custom_queries)
     print("Custom queries imported")
 
