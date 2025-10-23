@@ -78,6 +78,7 @@ def set_queries_permissions(public=True, users=None):
             set_query_scope(query_id, public, users)
         else:
             set_query_scope(query_id, public)
+        sleep(0.3)
 
 
 def convert_legacy_queries(queries):
