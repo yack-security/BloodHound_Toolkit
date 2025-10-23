@@ -50,6 +50,7 @@ parser.add_argument("--verify-access", "-va", action="store_true", help="Verify 
 parser.add_argument("--upload-collection", "-uc", help="Specify a folder containing json data or a zip file")
 parser.add_argument("--run-analysis", "-ra", action="store_true", help="Run analysis on data")
 parser.add_argument("--no-banner", "-nb", action="store_true", help="Don't show banner")
+parser.add_argument("--set-queries-public", "-sqp", action="store_true", help="Set queries permissions to public")
 args = parser.parse_args()
 
 # if no arguments, print help
@@ -204,3 +205,8 @@ if args.upload_collection:
 if args.run_analysis:
     utils.run_analysis()
     print("Analysis Lauched")
+
+# set all saved queries permissions to public
+if args.set_queries_public:
+    queries.set_queries_permissions(True, None)
+    print("All queries permissions set to public")

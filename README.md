@@ -44,9 +44,9 @@ python3 bhtk.py -h
 ```
 
 ```txt
-usage: bhtk.py [-h] [--start-containers] [--stop-containers] [--restart-containers] [--docker-logs] [--initial-config] [--change-password] [--list-databases] [--current-db] [--set-database SET_DATABASE]
-               [--clear-database] [--import-specterops-queries] [--import-custom-queries IMPORT_CUSTOM_QUERIES] [--old] [--delete-all-queries] [--retrieve-initial-password] [--create-api-key] [--update-api-key]
-               [--verify-access] [--upload-collection UPLOAD_COLLECTION] [--run-analysis] [--no-banner]
+usage: bhtk.py [-h] [--start-containers] [--stop-containers] [--restart-containers] [--docker-logs] [--initial-config] [--change-password] [--list-databases] [--current-db]
+               [--set-database SET_DATABASE] [--clear-database] [--import-specterops-queries] [--import-custom-queries IMPORT_CUSTOM_QUERIES] [--old] [--delete-all-queries]
+               [--retrieve-initial-password] [--create-api-key] [--update-api-key] [--verify-access] [--upload-collection UPLOAD_COLLECTION] [--run-analysis] [--no-banner] [--set-queries-public]
 
 Bloodhound Toolkit CLI
 
@@ -88,6 +88,8 @@ options:
                         Specify a folder containing json data or a zip file
   --run-analysis, -ra   Run analysis on data
   --no-banner, -nb      Don't show banner
+  --set-queries-public, -sqp
+                        Set queries permissions to public
 ```
 
 #### Examples
@@ -122,6 +124,19 @@ python3 bhtk.py -dq
 
 ### Python lib
 
+```python
+from lib.config import load_env_variables, update_env_variables
+import lib.bh_utils as bh_utils
+import lib.queries as queries
+import auth_flow as auth_flow
+
+# initial config
+auth_flow.authenticate()
+print("Initial configuration complete")
+```
+
 ## Todo
+
+- [ ] Add proxy as arg instead of hardcoded
 
 ## Credits

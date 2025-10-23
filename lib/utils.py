@@ -17,12 +17,25 @@ docker_compose_dir = config.load_env_variables()["docker_compose_dir"]
 def check_is_up():
     # check if bloodhound is up
     try:
-        response = requests.get(config.base_url() + "/api/v2/sso-providers")
-        if response.status_code == 200:
+        url = config.base_url() + "/api/v2/sso-providers"
+        response = requests.get(url, timeout=10)
+        # If we get any response (including 429 rate limit), the server is up
+        # 200-299: Success
+        # 400-499: Client errors (but server is responding)
+        # 500-599: Server errors (but server is responding)
+        if response.status_code < 600:
             return True
         else:
+            print(f"[!] BloodHound returned unexpected status {response.status_code} for {url}")
             return False
+    except requests.exceptions.Timeout:
+        print(f"[!] Timeout connecting to {config.base_url()} - BloodHound may be starting up")
+        return False
+    except requests.exceptions.ConnectionError as e:
+        print(f"[!] Cannot connect to {config.base_url()} - Connection error: {e}")
+        return False
     except Exception as e:
+        print(f"[!] Error checking BloodHound status: {type(e).__name__}: {e}")
         return False
 
 

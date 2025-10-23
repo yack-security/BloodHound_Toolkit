@@ -43,8 +43,41 @@ def delete_all_saved_queries():
         count += 1
 
 
+# get all saved queries
 def get_saved_queries():
     return bh_utils.pass_request("GET", "/api/v2/saved-queries").json()["data"]
+
+
+# set to Public by default
+def set_query_scope(query_id, public=True, users=None):
+    if users is None:
+        users = []
+    payload = {"public": public, "user_ids": users}
+    request_response = bh_utils.pass_request("PUT", f"/api/v2/saved-queries/{query_id}/permissions", payload)
+    # print(request_response.text)
+    if (
+        request_response.status_code == 200
+        or request_response.status_code == 201
+        or request_response.status_code == 204
+    ):
+        print(f"Query {query_id} scope set to {public} for users {users}")
+    else:
+        print(f"Failed to set query {query_id} scope to {public} for users {users}")
+
+
+# set to Public by default
+def set_queries_permissions(public=True, users=None):
+    queries_list = get_saved_queries()
+    # iterate over all saved queries
+    for query in queries_list:
+        query_id = query.get("id")
+        # query_name = query.get("name")
+        # query_scope = query.get("scope")
+        # print(f"[{query_id}] Query: {query_name}, Scope: {query_scope}")
+        if users is not None:
+            set_query_scope(query_id, public, users)
+        else:
+            set_query_scope(query_id, public)
 
 
 def convert_legacy_queries(queries):
