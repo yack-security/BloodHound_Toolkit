@@ -1,6 +1,7 @@
 import requests
 import json
 import lib.bh_utils as bh_utils
+from time import sleep
 
 # queries from specterops load https://raw.githubusercontent.com/SpecterOps/BloodHoundQueryLibrary/refs/heads/main/Queries.json
 # import queries that are not '"prebuilt": true,"'
@@ -41,6 +42,7 @@ def delete_all_saved_queries():
         bh_utils.pass_request("DELETE", f"/api/v2/saved-queries/{query.get('id')}")
         print(f"[{count}] Deleted query: {query.get('name')}")
         count += 1
+        sleep(0.3)
 
 
 # get all saved queries
