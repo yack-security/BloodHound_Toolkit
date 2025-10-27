@@ -15,6 +15,13 @@
 # SPDX-License-Identifier: Apache-2.0
 
 services:
+  # cloudflared:
+  #   image: cloudflare/cloudflared:latest
+  #   restart: unless-stopped
+  #   container_name: cloudflared
+  #   command: tunnel run --token eyJ....WbmM9In0=
+  #   network_mode: "host"
+
   app-db:
     image: postgres:16
     environment:

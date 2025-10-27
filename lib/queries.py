@@ -34,6 +34,7 @@ def import_queries(queries):
         bh_utils.pass_request("POST", "/api/v2/saved-queries", query)
         print(f"[{count}] Imported query: {query.get('name')}")
         count += 1
+        sleep(0.2)
 
 
 def delete_all_saved_queries():
@@ -42,7 +43,7 @@ def delete_all_saved_queries():
         bh_utils.pass_request("DELETE", f"/api/v2/saved-queries/{query.get('id')}")
         print(f"[{count}] Deleted query: {query.get('name')}")
         count += 1
-        sleep(0.3)
+        sleep(0.2)
 
 
 # get all saved queries
@@ -80,7 +81,7 @@ def set_queries_permissions(public=True, users=None):
             set_query_scope(query_id, public, users)
         else:
             set_query_scope(query_id, public)
-        sleep(0.3)
+        sleep(0.2)
 
 
 def convert_legacy_queries(queries):

@@ -46,6 +46,7 @@ def authenticate():
     if env_vars.get("token_id") and env_vars.get("token_key"):
         if verify_access():
             debug_print("Existing tokens work fine")
+            sleep(0.2)
             return True
         debug_print("Tokens expired, need to re-authenticate")
 
@@ -63,6 +64,7 @@ def authenticate():
 
     # Try login
     result = login_get_token("POST", "/api/v2/login", username, password)
+    sleep(0.2)
 
     if not result or not result[0]:
         # Login failed, try with initial password from docker
@@ -75,6 +77,7 @@ def authenticate():
 
         update_env_variables("BHE_INITIAL_PASSWORD", initial_password)
         result = login_get_token("POST", "/api/v2/login", username, initial_password)
+        sleep(0.2)
 
         if not result or not result[0]:
             debug_print("Initial password also failed")
@@ -86,6 +89,7 @@ def authenticate():
         response = change_password(
             "PUT", f"/api/v2/bloodhound-users/{user_id}/secret", session_token, initial_password, password
         )
+        sleep(0.2)
 
         if response.status_code != 200:
             debug_print("Failed to change password")
@@ -93,7 +97,7 @@ def authenticate():
 
         update_env_variables("BHE_PASSWORD", password)
         result = login_get_token("POST", "/api/v2/login", username, password)
-
+        sleep(0.2)
         if not result or not result[0]:
             return False
 
@@ -110,7 +114,7 @@ def authenticate():
         response = change_password(
             "PUT", f"/api/v2/bloodhound-users/{user_id}/secret", session_token, password, new_password
         )
-
+        sleep(0.2)
         if response.status_code != 200:
             debug_print("Password change failed")
             return False
@@ -119,6 +123,7 @@ def authenticate():
         update_env_variables("BHE_NEW_PASSWORD", "none")
 
         result = login_get_token("POST", "/api/v2/login", username, new_password)
+        sleep(0.2)
         if not result or not result[0]:
             return False
 
