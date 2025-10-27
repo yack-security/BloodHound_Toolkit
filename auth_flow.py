@@ -4,6 +4,7 @@ import os
 import sys
 from lib.config import load_env_variables, update_env_variables
 from lib.bh_utils import verify_access
+from time import sleep
 from lib.utils import (
     login_get_token,
     create_initial_api_key,
