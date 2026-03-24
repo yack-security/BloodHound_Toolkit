@@ -28,6 +28,8 @@ pip3 install -r requirements.txt
 cp env.example .env
 cp bloodhound.config.json.example bloodhound.config.json
 
+# Update BHE_NEW_PASSWORD in .env file
+
 # you can also edit docker-compose.yml if you need to
 
 # starting for the first time
