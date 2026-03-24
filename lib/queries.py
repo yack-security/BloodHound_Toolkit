@@ -3,12 +3,12 @@ import json
 import lib.bh_utils as bh_utils
 from time import sleep
 
-# queries from specterops load https://raw.githubusercontent.com/SpecterOps/BloodHoundQueryLibrary/refs/heads/main/Queries.json
+# queries from specterops load https://github.com/SpecterOps/BloodHoundQueryLibrary/releases/latest/download/Queries.json
 # import queries that are not '"prebuilt": true,"'
 
 
 def load_specterops_queries():
-    url = "https://raw.githubusercontent.com/SpecterOps/BloodHoundQueryLibrary/refs/heads/main/Queries.json"
+    url = "https://github.com/SpecterOps/BloodHoundQueryLibrary/releases/latest/download/Queries.json"
     response = requests.get(url)
     queries = response.json()
     filtered_queries = [query for query in queries if not query.get("prebuilt", False)]
