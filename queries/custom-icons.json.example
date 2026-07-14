@@ -1,0 +1,18 @@
+{
+  "custom_types": {
+    "NetworkShareSMB": {
+      "icon": {
+        "type": "font-awesome",
+        "name": "folder-tree",
+        "color": "#ffb1a3"
+      }
+    },
+    "File": {
+      "icon": {
+        "type": "font-awesome",
+        "name": "file",
+        "color": "#eaeaea"
+      }
+    }
+  }
+}

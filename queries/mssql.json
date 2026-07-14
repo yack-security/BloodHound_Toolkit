@@ -1,0 +1,47 @@
+[
+  {
+    "name": "MSSQL - List of MSSQL Servers",
+    "query": "MATCH (n:MSSQL_Server) RETURN n",
+    "category": "MSSQL"
+  },
+  {
+    "name": "MSSQL - Active Directory principals have paths into MSSQL",
+    "query": "MATCH p = ()-[:CoerceAndRelayToMSSQL|MSSQL_GetTGS|MSSQL_GetAdminTGS|MSSQL_HasLogin|MSSQL_HostFor|MSSQL_ServiceAccountFor]->() RETURN p",
+    "category": "MSSQL"
+  },
+  {
+    "name": "MSSQL - Active Directory principals have 'MSSQL_HasLogin'",
+    "query": "MATCH p=(n:Base)-[r:MSSQL_HasLogin]->() RETURN p",
+    "category": "MSSQL"
+  },
+  {
+    "name": "MSSQL - Owned Active Directory principals have 'MSSQL_HasLogin'",
+    "query": "MATCH p=(n:Base)-[r:MSSQL_HasLogin]->() WHERE (n:Tag_Owned) RETURN p",
+    "category": "MSSQL"
+  },
+  {
+    "name": "MSSQL - Shortest path from an Active Directory principal to take control of an MSSQL instance",
+    "query": "MATCH p = shortestPath((n:Base)-[*1..]->(m:MSSQL_Server)) WHERE NOT n = m RETURN p ORDER BY LENGTH(p) DESC LIMIT 1",
+    "category": "MSSQL"
+  },
+  {
+    "name": "MSSQL -  principals have a path back into Active Directory (e.g., by executing code on the host, abusing stored credentials, etc.)",
+    "query": "MATCH p = ()-[:MSSQL_ExecuteOnHost|MSSQL_HasDBScopedCred|MSSQL_HasMappedCred|MSSQL_HasProxyCred]->() RETURN p",
+    "category": "MSSQL"
+  },
+  {
+    "name": "MSSQL -  Objects does this principal own",
+    "query": "MATCH p = (:MSSQL_Login {name:\"SA\"})-[:MSSQL_Owns]->() RETURN p",
+    "category": "MSSQL"
+  },
+  {
+    "name": "MSSQL -  Linked Servers",
+    "query": "MATCH p=()-[r:MSSQL_LinkedTo]->() RETURN p",
+    "category": "MSSQL"
+  },
+  {
+    "name": "MSSQL -  Service Accounts for MSSQL Servers",
+    "query": "MATCH p=()-[r:MSSQL_ServiceAccountFor]->() RETURN p ",
+    "category": "MSSQL"
+  }
+]

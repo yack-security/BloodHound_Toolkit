@@ -1,0 +1,27 @@
+[
+  {
+    "name": "ShareHound - Principals with Write Access to a Network Share",
+    "query": "MATCH x=(p)-[r:CanWriteDacl|CanWriteOwner|CanDsWriteProperty| CanDsWriteExtendedProperties]->(s:NetworkShareSMB) RETURN x",
+    "category": "ShareHound"
+  },
+  {
+    "name": "ShareHound - Principals with Write Access to a Network Share",
+    "query": "MATCH x=(p)-[r:CanWriteDacl|CanWriteOwner|CanDsWriteProperty| CanDsWriteExtendedProperties]->(s:NetworkShareSMB) RETURN x",
+    "category": "ShareHound"
+  },
+  {
+    "name": "ShareHound - Principals with Full Control on Network Shares",
+    "query": "MATCH (p:Principal)-[r]->(s:NetworkShareSMB) WHERE (p)-[:CanDelete]->(s) AND (p)-[:CanDsControlAccess]->(s) AND (p)-[:CanDsCreateChild]->(s) AND (p)-[:CanDsDeleteChild]->(s) AND (p)-[:CanDsDeleteTree]->(s) AND (p)-[:CanDsListContents]->(s) AND (p)-[:CanDsListObject]->(s) AND (p)-[:CanDsReadProperty]->(s) AND (p)-[:CanDsWriteExtendedProperties]->(s) AND (p)-[:CanDsWriteProperty]->(s) AND (p)-[:CanReadControl]->(s) AND (p)-[:CanWriteDacl]->(s) AND (p)-[:CanWriteOwner]->(s) RETURN p,r,s",
+    "category": "ShareHound"
+  },
+  {
+    "name": "ShareHound - Find a file in a Share with Read Access (file name)",
+    "query": "MATCH p=(h:NetworkShareHost)-[:HasNetworkShare]->(s:NetworkShareSMB)-[:Contains*0..]->(f:File) WHERE toLower(f.name) = toLower(\"flag.txt\") RETURN p",
+    "category": "ShareHound"
+  },
+  {
+    "name": "ShareHound - VMDK File of a in a Share with Read Access (file extension)",
+    "query": "MATCH p=(h:NetworkShareHost)-[:HasNetworkShare]->(s:NetworkShareSMB)-[:Contains*0..]->(f:File) WHERE toLower(f.extension) = toLower(\".vmdk\") RETURN p",
+    "category": "ShareHound"
+  }
+]

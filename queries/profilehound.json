@@ -1,0 +1,27 @@
+[
+  {
+    "query": "WITH 3 as active_days\nMATCH p = (u:User)-[e:HasUserProfile]-(c:Computer)\nWHERE e.profileModified > (datetime().epochseconds - (active_days * 86400))\nRETURN p",
+    "name": "Profilehound - Active User Profile within last 3 days",
+    "description": "Checks for all user profiles with a modified time within the last 3 days"
+  },
+  {
+    "query": "match p = (u:User)-[e:HasUserProfile]-(c:Computer)\nwhere e.profileCreated < e.profileModified\nreturn p",
+    "name": "Profilehound - Active User Profile",
+    "description": "Modified date is after created date, indicating this is likely an active profile"
+  },
+  {
+    "query": "WITH 3 as active_days, \"administrators\" as group_name\nMATCH p = (g:Group)<-[:MemberOf*1..]-(u:User)-[e:HasUserProfile]-(c:Computer)\nWHERE e.profileModified > (datetime().epochseconds - (active_days * 86400)) AND toLower(g.samaccountname) = group_name\nRETURN p",
+    "name": "Profilehound - Active User Profiles within a Specific Group",
+    "description": "Finds all active user profiles within the last 3 days for members of a specific group."
+  },
+  {
+    "query": "MATCH p=(u:User)-[:HasUserProfile]->(c:Computer)\nRETURN p",
+    "name": "Profilehound - All User Profiles",
+    "description": "Checks for all user profiles found with Profilehound"
+  },
+  {
+    "query": "MATCH p=(g:Group)<-[:MemberOf*1..]-(u:User)-[:HasUserProfile]->(c:Computer)\nWHERE toLower(g.samaccountname) = \"administrators\"\nRETURN p",
+    "name": "Profilehound - Find user profiles by group name",
+    "description": "Finds all profiles on machines for users within a specific group"
+  }
+]

@@ -1,0 +1,7 @@
+[
+  {
+    "name": "NetworkHound - Computers with an IP address",
+    "query": "MATCH (c:Computer) WHERE (c.ip_addresses IS NOT NULL) RETURN c",
+    "category": "NetworkHound"
+  }
+]

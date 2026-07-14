@@ -1,0 +1,53 @@
+{
+  "custom_types": {
+    "MSSQL_DatabaseUser": {
+      "icon": {
+        "name": "user",
+        "color": "#f5ef42",
+        "type": "font-awesome"
+      }
+    },
+    "MSSQL_Login": {
+      "icon": {
+        "name": "user-gear",
+        "color": "#dd42f5",
+        "type": "font-awesome"
+      }
+    },
+    "MSSQL_DatabaseRole": {
+      "icon": {
+        "name": "users",
+        "color": "#f5a142",
+        "type": "font-awesome"
+      }
+    },
+    "MSSQL_Database": {
+      "icon": {
+        "name": "database",
+        "color": "#f54242",
+        "type": "font-awesome"
+      }
+    },
+    "MSSQL_ApplicationRole": {
+      "icon": {
+        "name": "robot",
+        "color": "#6ff542",
+        "type": "font-awesome"
+      }
+    },
+    "MSSQL_Server": {
+      "icon": {
+        "name": "server",
+        "color": "#42b9f5",
+        "type": "font-awesome"
+      }
+    },
+    "MSSQL_ServerRole": {
+      "icon": {
+        "name": "users-gear",
+        "color": "#6942f5",
+        "type": "font-awesome"
+      }
+    }
+  }
+}
