@@ -6,5 +6,9 @@ data/queries
 .env
 test.py
 __pycache__
-data/queries/sample.json
+queries/note.txt
+queries/set-custom-icons.py
+queries/queries.json
 bloodhound.config.json
+note.txt
+data_copie

@@ -39,6 +39,7 @@ parser.add_argument(
     "--import-specterops-queries", "-isq", action="store_true", help="Import SpecterOps queries from github"
 )
 parser.add_argument("--import-custom-queries", "-icq", help="Import custom queries from file or url")
+parser.add_argument("--import-custom-icons", "-ici", help="Import custom node icons from file or url")
 parser.add_argument("--old", action="store_true", help="Convert legacy query format before importing (use with -icq)")
 parser.add_argument("--delete-all-queries", "-dq", action="store_true", help="Delete all custom queries")
 parser.add_argument("--retrieve-initial-password", "-rip", action="store_true", help="Retrieve initial password")
@@ -172,7 +173,11 @@ if args.import_specterops_queries:
 
 # import custom queries
 if args.import_custom_queries:
-    custom_queries = queries.load_custom_queries(args.import_custom_queries)
+    try:
+        custom_queries = queries.load_custom_queries(args.import_custom_queries)
+    except ValueError as exc:
+        print(exc)
+        sys.exit(1)
 
     # Convert legacy format if --old flag is present
     if args.old:
@@ -187,6 +192,19 @@ if args.import_custom_queries:
 
     queries.import_queries(custom_queries)
     print("Custom queries imported")
+
+# import custom node icons
+if args.import_custom_icons:
+    try:
+        custom_icons = queries.load_custom_icons(args.import_custom_icons)
+    except ValueError as exc:
+        print(exc)
+        sys.exit(1)
+
+    if queries.import_custom_icons(custom_icons):
+        print("Custom icons imported")
+    else:
+        sys.exit(1)
 
 # delete all custom queries
 if args.delete_all_queries:

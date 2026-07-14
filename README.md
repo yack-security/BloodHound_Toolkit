@@ -47,7 +47,8 @@ python3 bhtk.py -h
 
 ```txt
 usage: bhtk.py [-h] [--start-containers] [--stop-containers] [--restart-containers] [--docker-logs] [--initial-config] [--change-password] [--list-databases] [--current-db]
-               [--set-database SET_DATABASE] [--clear-database] [--import-specterops-queries] [--import-custom-queries IMPORT_CUSTOM_QUERIES] [--old] [--delete-all-queries]
+               [--set-database SET_DATABASE] [--clear-database] [--import-specterops-queries] [--import-custom-queries IMPORT_CUSTOM_QUERIES] [--import-custom-icons IMPORT_CUSTOM_ICONS]
+               [--old] [--delete-all-queries]
                [--retrieve-initial-password] [--create-api-key] [--update-api-key] [--verify-access] [--upload-collection UPLOAD_COLLECTION] [--run-analysis] [--no-banner] [--set-queries-public]
 
 Bloodhound Toolkit CLI
@@ -75,7 +76,9 @@ options:
   --import-specterops-queries, -isq
                         Import SpecterOps queries from github
   --import-custom-queries IMPORT_CUSTOM_QUERIES, -icq IMPORT_CUSTOM_QUERIES
-                        Import custom queries from file or url
+                         Import custom queries from file or url
+  --import-custom-icons IMPORT_CUSTOM_ICONS, -ici IMPORT_CUSTOM_ICONS
+                         Import custom node icons from file or url
   --old                 Convert legacy query format before importing (use with -icq)
   --delete-all-queries, -dq
                         Delete all custom queries
@@ -118,10 +121,29 @@ python3 bhtk.py -isq
 python3 bhtk.py -icq data/queries/custom.json
 python3 bhtk.py -icq https://raw.githubusercontent.com/yack-security/BloodHound_Toolkit/main/data/queries/custom.json
 
+# Import custom node icons from file or url
+python3 bhtk.py -ici queries/custom-icons.json.example
+
 # try --old flag if you are importing legacy queries
 
 # Delete all custom queries
 python3 bhtk.py -dq
+```
+
+Custom icon imports must match the BloodHound `/api/v2/custom-nodes` request body format. The toolkit performs a preflight check and aborts the whole import if any custom node kind already exists.
+
+```json
+{
+  "custom_types": {
+    "KindA": {
+      "icon": {
+        "type": "font-awesome",
+        "name": "house",
+        "color": "#FFFFFF"
+      }
+    }
+  }
+}
 ```
 
 ### Python lib
